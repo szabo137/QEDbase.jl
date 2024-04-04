@@ -5,7 +5,7 @@ const ATOL = 1e-15
 
 const SPINS = (1, 2)
 
-@testset "particle spinors" for LorentzVectorType in [SFourMomentum, MFourMomentum]
+@testset "particle spinors" for LorentzVectorType in [SFourMomentum,]
     rng = MersenneTwister(1234)
     x, y, z = rand(rng, 3)
     mass = rand(rng)

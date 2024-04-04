@@ -97,11 +97,6 @@ Return the square of the magnitude of a given four-momentum, i.e. the sum of the
 end
 
 """
-Functiom alias for [`magnitude2`](@ref).
-"""
-const mag2 = magnitude2 
-
-"""
 
     magnitude(::EXYZ,mom)
 
@@ -122,11 +117,6 @@ Return the magnitude of a given four-momentum, i.e. the euklidian norm spatial c
 end
 
 """
-Functiom alias for [`magnitude`](@ref).
-"""
-const mag = magnitude
-
-"""
 
     invariant_mass2(::EXYZ,mom)
 
@@ -141,9 +131,6 @@ Return the squared invariant mass of a given four-momentum, i.e. the minkowski d
 @inline function invariant_mass2(::EXYZ,mom) 
     return minkowski_dot(mom,mom)
 end
-
-"""Function alias for [`invariant_mass2`](@ref)"""
-const mass2 = invariant_mass2
 
 """
 
@@ -171,9 +158,6 @@ Return the the invariant mass of a given four-momentum, i.e. the square root of 
         return sqrt(m2)
     end
 end
-
-"""Function alias for [`invariant_mass`](@ref)."""
-const mass = invariant_mass
 
 """
 
@@ -239,11 +223,6 @@ Return the squared transverse momentum for a given four-momentum, i.e. the sum o
     return px(mom)^2 + py(mom)^2
 end
 
-"""Function alias for [`transverse_momentum2`](@ref)."""
-const pt2 = transverse_momentum2
-"""Function alias for [`transverse_momentum2`](@ref)."""
-const perp2 = transverse_momentum2 
-
 """
 
     transverse_momentum(::EXYZ, mom)
@@ -263,10 +242,6 @@ Return the transverse momentum for a given four-momentum, i.e. the magnitude of 
 @inline function transverse_momentum(::EXYZ,mom)
     return sqrt(transverse_momentum2(mom))
 end
-"""Function alias for [`transverse_momentum`](@ref)."""
-const pt = transverse_momentum 
-"""Function alias for [`transverse_momentum`](@ref)."""
-const perp = transverse_momentum 
 
 """
 
@@ -288,8 +263,6 @@ Return the squared transverse mass for a given four-momentum, i.e. the differenc
 @inline function transverse_mass2(::EXYZ, mom)
     return energy(mom)^2 - pz(mom)^2
 end
-"""Function alias for [`transverse_mass2`](@ref)"""
-const mt2 = transverse_mass2
 
 """
 
@@ -320,8 +293,6 @@ function transverse_mass(::EXYZ, mom)
         sqrt(mT2)
     end
 end
-"""Function alias for [`transverse_mass`](@ref)"""
-const mt = transverse_mass 
 
 """
 

@@ -7,29 +7,30 @@ using ConstructionBase
 import Base: *
 import StaticArrays: similar_type
 
-export minkowski_dot, mdot, register_LorentzVectorLike
-export getT, getX, getY, getZ
-export getMagnitude2, getMag2, getMagnitude, getMag
-export getInvariantMass2, getMass2, getInvariantMass, getMass
-export getE, getEnergy, getPx, getPy, getPz
-export getBeta, getGamma
-export getTransverseMomentum2, getPt2, getPerp2, getTransverseMomentum, getPt, getPerp
-export getTransverseMass2, getMt2, getTransverseMass, getMt
-export getRapidity
-export getRho2, getRho
-export getTheta, getCosTheta
-export getPhi, getCosPhi, getSinPhi
-export getPlus, getMinus
+export minkowski_dot, mdot
+export energy, px, py, pz 
+export magnitude2, mag2, magnitude, mag
+export invariant_mass2, mass2, invariant_mass, mass
+export boost_beta, boost_gamma
+export transverse_momentum2, pt2, perp2
+export transverse_momentum, pt, perp 
+export transverse_mass2,mt2, transverse_mass, mt
+export rapidity, pseudorapidity
+export polar_angle, cos_theta, azimuthal_angle, cos_phi, sin_phi
+export plus_component, minus_component
+#
+# export setE!, setEnergy!, setPx!, setPy!, setPz!
+# export setTheta!, setCosTheta!, setRho!, setPhi!
+# export setPlus!, setMinus!
+# export setTransverseMomentum!, setPerp!, setPt!
+# export setTransverseMass!, setMt!
+# export setRapidity!
+export coordinate_system, coordinate_names
+# export AbstractLorentzVector, SLorentzVector, MLorentzVector, dot
+# export SFourMomentum, MFourMomentum, isonshell, assert_onshell
 
-export setE!, setEnergy!, setPx!, setPy!, setPz!
-export setTheta!, setCosTheta!, setRho!, setPhi!
-export setPlus!, setMinus!
-export setTransverseMomentum!, setPerp!, setPt!
-export setTransverseMass!, setMt!
-export setRapidity!
-
-export AbstractLorentzVector, SLorentzVector, MLorentzVector, dot
-export SFourMomentum, MFourMomentum, isonshell, assert_onshell
+export AbstractLorentzVector, SLorentzVector, dot
+export SFourMomentum,isonshell, assert_onshell
 
 export BiSpinor, AdjointBiSpinor, DiracMatrix, mul
 export AbstractDiracVector, AbstractDiracMatrix
@@ -66,8 +67,10 @@ using StaticArrays
 using LinearAlgebra
 using DocStringExtensions
 
+include("interfaces/four_momentum_interface.jl")
+include("coordinate_systems/exyz.jl")
+
 include("dirac_tensors.jl")
-include("lorentz_interface.jl")
 include("lorentz_vector.jl")
 include("gamma_matrices.jl")
 

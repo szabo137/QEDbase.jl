@@ -87,62 +87,72 @@ function similar_type(::Type{A}, ::Type{T}, ::Size{S}) where {A<:SLorentzVector,
     return SLorentzVector{T}
 end
 
-@inline getT(lv::SLorentzVector) = lv.t
-@inline getX(lv::SLorentzVector) = lv.x
-@inline getY(lv::SLorentzVector) = lv.y
-@inline getZ(lv::SLorentzVector) = lv.z
+# @inline getT(lv::SLorentzVector) = lv.t
+# @inline getX(lv::SLorentzVector) = lv.x
+# @inline getY(lv::SLorentzVector) = lv.y
+# @inline getZ(lv::SLorentzVector) = lv.z
+#
+# register_LorentzVectorLike(SLorentzVector)
 
-register_LorentzVectorLike(SLorentzVector)
+# """
+# $(TYPEDEF)
+#
+# Concrete implementation of a generic mutable Lorentz vector. Each manipulation of an concrete implementation which is not self-contained (i.e. produces the same Lorentz vector type) will result in this type.
+#
+# # Fields
+# $(TYPEDFIELDS)
+# """
+# mutable struct MLorentzVector{T} <: AbstractLorentzVector{T}
+#     "`t` component"
+#     t::T
+#
+#     "`x` component"
+#     x::T
+#
+#     "`y` component"
+#     y::T
+#
+#     "`z` component"
+#     z::T
+# end
+# MLorentzVector(t, x, y, z) = MLorentzVector(promote(t, x, y, z)...)
+#
+# function similar_type(::Type{A}, ::Type{T}, ::Size{S}) where {A<:MLorentzVector,T,S}
+#     return MLorentzVector{T}
+# end
+#
+# @inline getT(lv::MLorentzVector) = lv.t
+# @inline getX(lv::MLorentzVector) = lv.x
+# @inline getY(lv::MLorentzVector) = lv.y
+# @inline getZ(lv::MLorentzVector) = lv.z
+#
+# function QEDbase.setT!(lv::MLorentzVector, value::T) where {T}
+#     return lv.t = value
+# end
+#
+# function QEDbase.setX!(lv::MLorentzVector, value::T) where {T}
+#     return lv.x = value
+# end
+#
+# function QEDbase.setY!(lv::MLorentzVector, value::T) where {T}
+#     return lv.y = value
+# end
+#
+# function QEDbase.setZ!(lv::MLorentzVector, value::T) where {T}
+#     return lv.z = value
+# end
+#
+# register_LorentzVectorLike(MLorentzVector)
 
-"""
-$(TYPEDEF)
 
-Concrete implementation of a generic mutable Lorentz vector. Each manipulation of an concrete implementation which is not self-contained (i.e. produces the same Lorentz vector type) will result in this type.
-
-# Fields
-$(TYPEDFIELDS)
-"""
-mutable struct MLorentzVector{T} <: AbstractLorentzVector{T}
-    "`t` component"
-    t::T
-
-    "`x` component"
-    x::T
-
-    "`y` component"
-    y::T
-
-    "`z` component"
-    z::T
+# FIXME: momentum accessor are not defined for every lorentz vector. consider
+# implementing a more general interface.
+# LorentzVectors could have at least:
+# * t_component, x_component, y_component, z_component
+# * lorentz transform
+@inline function mdot(p1::T1, p2::T2) where {T1<:AbstractLorentzVector,T2<:AbstractLorentzVector}
+    return energy(p1)*energy(p2) - (px(p1)*px(p2) + py(p1)*py(p2) + pz(p1)*pz(p2))
 end
-MLorentzVector(t, x, y, z) = MLorentzVector(promote(t, x, y, z)...)
-
-function similar_type(::Type{A}, ::Type{T}, ::Size{S}) where {A<:MLorentzVector,T,S}
-    return MLorentzVector{T}
-end
-
-@inline getT(lv::MLorentzVector) = lv.t
-@inline getX(lv::MLorentzVector) = lv.x
-@inline getY(lv::MLorentzVector) = lv.y
-@inline getZ(lv::MLorentzVector) = lv.z
-
-function QEDbase.setT!(lv::MLorentzVector, value::T) where {T}
-    return lv.t = value
-end
-
-function QEDbase.setX!(lv::MLorentzVector, value::T) where {T}
-    return lv.x = value
-end
-
-function QEDbase.setY!(lv::MLorentzVector, value::T) where {T}
-    return lv.y = value
-end
-
-function QEDbase.setZ!(lv::MLorentzVector, value::T) where {T}
-    return lv.z = value
-end
-
-register_LorentzVectorLike(MLorentzVector)
 
 function dot(p1::T1, p2::T2) where {T1<:AbstractLorentzVector,T2<:AbstractLorentzVector}
     return mdot(p1, p2)
