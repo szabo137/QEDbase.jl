@@ -1,9 +1,9 @@
 function _booster_fermion(mom::QEDbase.AbstractFourMomentum, mass::Real)
-    return (slashed(mom) + mass * one(DiracMatrix)) / (sqrt(abs(getT(mom)) + mass))
+    return (slashed(mom) + mass * one(DiracMatrix)) / (sqrt(abs(energy(mom)) + mass))
 end
 
 function _booster_antifermion(mom::QEDbase.AbstractFourMomentum, mass::Real)
-    return (mass * one(DiracMatrix) - slashed(mom)) / (sqrt(abs(getT(mom)) + mass))
+    return (mass * one(DiracMatrix) - slashed(mom)) / (sqrt(abs(energy(mom)) + mass))
 end
 
 """
@@ -228,26 +228,26 @@ end
 function _photon_state(pol::AllPolarization, mom::QEDbase.AbstractFourMomentum)
     cth = cos_theta(mom)
     sth = sqrt(1 - cth^2)
-    cos_phi = cos_phi(mom)
-    sin_phi = sin_phi(mom)
+    cphi = cos_phi(mom)
+    sphi = sin_phi(mom)
     return SVector(
-        SLorentzVector{Float64}(0.0, cth * cos_phi, cth * sin_phi, -sth),
-        SLorentzVector{Float64}(0.0, -sin_phi, cos_phi, 0.0),
+        SLorentzVector{Float64}(0.0, cth * cphi, cth * sphi, -sth),
+        SLorentzVector{Float64}(0.0, -sphi, cphi, 0.0),
     )
 end
 
 function _photon_state(pol::PolarizationX, mom::QEDbase.AbstractFourMomentum)
     cth = cos_theta(mom)
     sth = sqrt(1 - cth^2)
-    cos_phi = cos_phi(mom)
-    sin_phi = sin_phi(mom)
-    return SLorentzVector{Float64}(0.0, cth * cos_phi, cth * sin_phi, -sth)
+    cphi = cos_phi(mom)
+    sphi = sin_phi(mom)
+    return SLorentzVector{Float64}(0.0, cth * cphi, cth * sphi, -sth)
 end
 
 function _photon_state(pol::PolarizationY, mom::QEDbase.AbstractFourMomentum)
-    cos_phi = cos_phi(mom)
-    sin_phi = sin_phi(mom)
-    return SLorentzVector{Float64}(0.0, -sin_phi, cos_phi, 0.0)
+    cphi = cos_phi(mom)
+    sphi = sin_phi(mom)
+    return SLorentzVector{Float64}(0.0, -sphi, cphi, 0.0)
 end
 
 @inline function base_state(

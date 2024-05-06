@@ -129,7 +129,7 @@ Return the squared invariant mass of a given four-momentum, i.e. the minkowski d
 
 """
 @inline function invariant_mass2(::EXYZ,mom) 
-    return minkowski_dot(mom,mom)
+    return mdot(mom,mom)
 end
 
 """

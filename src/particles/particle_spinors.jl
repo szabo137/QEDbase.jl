@@ -51,7 +51,7 @@ function _build_particle_booster(
     mom::T, mass::Float64
 ) where {T<:AbstractLorentzVector{TE}} where {TE<:Real}
     _check_spinor_input(mom, mass)
-    return (slashed(mom) + mass * one(DiracMatrix)) / (sqrt(abs(mom.t) + mass))
+  return (slashed(mom) + mass * one(DiracMatrix)) / (sqrt(abs(energy(mom)) + mass))
 end
 
 struct IncomingFermionSpinor <: AbstractParticleSpinor
@@ -94,7 +94,7 @@ function _build_antiparticle_booster(
     mom::T, mass::Float64
 ) where {T<:AbstractLorentzVector{TE}} where {TE<:Real}
     _check_spinor_input(mom, mass)
-    return (mass * one(DiracMatrix) - slashed(mom)) / (sqrt(abs(mom.t) + mass))
+  return (mass * one(DiracMatrix) - slashed(mom)) / (sqrt(abs(energy(mom)) + mass))
 end
 
 struct OutgoingAntiFermionSpinor <: AbstractParticleSpinor

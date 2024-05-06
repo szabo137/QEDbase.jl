@@ -26,6 +26,7 @@ export plus_component, minus_component
 # export setTransverseMass!, setMt!
 # export setRapidity!
 export coordinate_system, coordinate_names
+export comp_x,comp_y,comp_z,comp_t
 # export AbstractLorentzVector, SLorentzVector, MLorentzVector, dot
 # export SFourMomentum, MFourMomentum, isonshell, assert_onshell
 
@@ -68,6 +69,7 @@ using LinearAlgebra
 using DocStringExtensions
 
 include("interfaces/four_momentum_interface.jl")
+include("interfaces/lorentz_vector_interface.jl")
 include("coordinate_systems/exyz.jl")
 
 include("dirac_tensors.jl")
